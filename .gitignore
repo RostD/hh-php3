@@ -9,6 +9,9 @@ nbproject
 .project
 .settings
 
+# Apache config
+.htaccess
+
 # windows thumbnail cache
 Thumbs.db
 
