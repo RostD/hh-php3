@@ -39,6 +39,11 @@ $config = [
             ],
         ],
         'db' => $db,
+        'response' => [
+            'formatters' => [
+                'javascript' => \app\components\JSFormatter::class,
+            ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
