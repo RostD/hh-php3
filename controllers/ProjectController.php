@@ -37,6 +37,10 @@ class ProjectController extends Controller
          *
          * P.S.
          * Все индексы в базе уже имелись
+         * 
+         * UPDATE:
+         * I know! actionTable with sql used yii2 relations created
+         * Но по производительности расчеты на PHP выполняются быстрее (визуально)
          */
         $statistics = [];
 
@@ -98,5 +102,33 @@ class ProjectController extends Controller
         Yii::$app->response->format = 'javascript';
 
         return ('alert("I\'m JavaScript file creating in '.__METHOD__.'")');
+    }
+
+    public function actionTable()
+    {
+        $query = Project::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count()
+        ]);
+
+        $projects = $query
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->joinWith(['calls','calls.actions'])
+            ->select([
+                'projects.id',
+                'projects.name',
+                'SUM(case calls_actions.action when \'1\' then 1 else 0 end) total_transfer_actions',
+                'ROUND ((count(calls_actions.id)/count(distinct calls.id)),2) as mean_actions'
+            ])
+            ->where("
+                    creation_time >= '2016-01-01 00:00' AND 
+                    creation_time <= '2016-12-31 23:59'")
+            ->groupBy('projects.id')
+            ->orderBy('projects.name')
+            ->with(['calls','calls.actions'])
+            ->all();
+        return $this->render('table',['projects' => $projects,'pagination'=>$pagination]);
     }
 }

@@ -36,7 +36,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Таблица ПР 2016', 'url' => ['/project/project-statistics']],
+            ['label' => 'Таблица ПР 2016 (MySQL calculation)', 'url' => ['/project/table']],
+            ['label' => 'Таблица ПР 2016 (PHP calculation)', 'url' => ['/project/project-statistics']],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],

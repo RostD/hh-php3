@@ -13,6 +13,9 @@ use yii\db\ActiveRecord;
 
 class Project extends ActiveRecord
 {
+    public $total_transfer_actions;
+    public $mean_actions;
+    
     public static function tableName()
     {
         return 'projects';
