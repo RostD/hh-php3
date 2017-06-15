@@ -127,7 +127,6 @@ class ProjectController extends Controller
                     creation_time <= '2016-12-31 23:59'")
             ->groupBy('projects.id')
             ->orderBy('projects.name')
-            ->with(['calls','calls.actions'])
             ->all();
         return $this->render('table',['projects' => $projects,'pagination'=>$pagination]);
     }

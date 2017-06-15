@@ -15,6 +15,17 @@ class TestController extends  Controller
 {
     public function actionIndex()
     {
+    // Чек файла на наличие pid уже запущенного процесса, если есть - проверить работает ли, если да то exit()
+
+    //все stdin/out/err > /dev/null
+
+    // форкнуть процесс
+    // в дочернем процессе установить setsid(0)
+    // закрыть все открытые дискрипторы, лучше от 0-1024
+    // сделать dup() дескрипторов 1,2,3 и перенаправить в /dev/null
+    // форкнуть второй раз
+    // Запись текущего pid в файл
+
 
         cli_set_process_title("DateProcess");
 
